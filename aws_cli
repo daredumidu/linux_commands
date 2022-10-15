@@ -1,0 +1,19 @@
+# aws --version
+# which aws
+# aws configure list
+# aws configure list-profile
+
+# aws configure
+Provide aws access key ID, secret access key, default region name, output format. 
+
+# aws s3 ls													List buckets 
+# aws s3 ls s3://bucket_name 				List files in bucket
+Create bucket - mb
+Delete bucket - rb
+Copy files - cp
+Delete file - rm
+
+upload file to s3 bucket
+# aws s3 cp latest_file s3://misp-backup --region eu-west-1
+
+# aws iam list-groups
