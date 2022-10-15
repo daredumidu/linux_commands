@@ -1,10 +1,10 @@
-# history 		view recently used commands
+# history 			view recently used commands
 
 # ifconfig
 # ipaddr
 # netstat
 # tcpdump
-# route 		view routing table
+# route 			view routing table
 # route -n
 # ping –c4 192.168.1.1
 
@@ -15,32 +15,52 @@
 # shutdown –r now		restart
 # reboot
 
-# w 			current users in the system
-# whoami		present user
-# pwd 			present working directory
-# uname		displays information about the current system
+# w 				current users in the system
+# whoami			present user
+# pwd 				present working directory
+# uname				displays information about the current system
 # uname –n / # uname --nodename
-# whereis 		to find where a command (or its man pages) is located
-# useradd 		add a new user to the system
-# passwd 		change the password of the user
+# whereis 			to find where a command (or its man pages) is located
+# useradd 			add a new user to the system
+# passwd 			change the password of the user
 # date
 
-# <command> && <command>    run multiple commands at once.
+# <command> && <command>    	run multiple commands at once.
 
-# ls 			list files, directories
+# ls 				list files, directories
 # ls -l 			list files with details
 # ls -lh			list details of files with human friendly format
 # ls -al 			list hidden files
-# du –h 				free space
+# du –h 			free space
 - - - - - - - - - - 
+
+find <directory> -name "<name>"
+find /home -name "*cis*cat*.txt"
+https://www.linode.com/docs/tools-reference/tools/find-files-in-linux-using-the-command-line/
+- - - - - - - - - -
+# grep [search pattern] [search location]
+# grep tty1 file1
+
+view the file | filter command
+# cat /etc/passwd | grep student
+- - - - - - - - - -
+
+# cat /etc/passwd          	user list
+- - - - - - - - - -
+
 DNS
 # cat /etc/resolve.conf
 # cat /etc/named.conf
 - - - - - - - - - - 
 # vim /etc/ntp.conf
 - - - - - - - - - - 
-touch <file_name>, cat <file_name>, > <file_name>
+
+create a file in linux
+touch <file_name>
+cat <file_name>
+> <file_name>
 - - - - - - - - - - 
+
 # mv [source file] [destination file]	move a file to a new location
 # mv /home/test/test.txt /home/new/test.txt
 
@@ -49,15 +69,16 @@ touch <file_name>, cat <file_name>, > <file_name>
 
 # mkdir [directory name]		create a directory
 
-# rmdir 	[directory name]		delete a directory
-# rm [file name]				delete a file
+# rmdir [directory name]		delete a directory
+# rm [file name]			delete a file
 
 # rm -rf [file name] 			forcefully delete a file
 # rm -rf dir [directory name]/		forcefully delete a directory
 
-# su - 			login to root
-# su - [user name]	switch user
+# su - 					login to root
+# su - [user name]			switch user
 - - - - - - - - - - 
+
 open a file --> vim <file name>
 edit --> i
 save --> Esc :w
@@ -66,9 +87,9 @@ save & quit --> Esc :wq
 execute commands inside vim --> :!<command>
 - - - - - - - - - - 
 
-nano /file_name
-ctrl + o save
-ctrl + x exit
+open a file --> nano <file name>
+save --> ctrl + o
+quit --> ctrl + x
 - - - - - - - - - -
 
 # yum install samba samba-client cifs-utils
@@ -82,27 +103,16 @@ archive list --> tar tvzf name.tar.gz
 create --> tar cvzf name.tar.gz /path/to/directory
 extract -->tar xvzf <file name>.tar.gz
 - - - - - - - - - -
-find <directory> -name "<name>"
-find /home -name "*cis*cat*.txt"
-https://www.linode.com/docs/tools-reference/tools/find-files-in-linux-using-the-command-line/
-- - - - - - - - - -
-# grep [search pattern] [search location]
-# grep tty1 file1
 
-view the file | filter command
-# cat /etc/passwd | grep student
-- - - - - - - - - -
 sorting
 sort wordlist.txt | uniq | wc -l
 sort wordlist.txt | uniq >> uniqlist.txt
 - - - - - - - - - -
-ssh -l admin 192.168.1.122
-- - - - - - - - - -
+
 disk imaging --> dd if=/dev/sda of=/root/Desktop/image.dd bs=512
 - - - - - - - - - -
-# cat /etc/passwd          user list
 
-Check king access logs.
+Checking access logs.
 
 # cat /var/log/apache/access.log | grep 88.55.41.57
 
@@ -111,26 +121,34 @@ Check king access logs.
 
 Permissions
 # chmod [ugo][+-=] [rwx] [file name] 	
-u = user, g = group, o = other 	owners of the file
+u = user, g = group, o = other 		owners of the file
 r = read, w = write, x = execute	permissions
+
 # chmod u+wx, go+r backup.sh
 
-rwx rwx rwx
-421 421 421
-111 110 110
- 7      6     6
+user	group	other
+rwx 	rwx 	rwx
+421 	421 	421
+111 	110 	110 	(binary)
+7   	6   	6 	(decimal)
 
-# chmod 766 test
+# chmod 766 backup.sh
 - - - - - - - - - -
+
+SSH to another host
+	ssh -l admin 192.168.1.122
+- - - - - - - - - -
+
 Connect to a remote server
 	# ssh 192.168.1.1 		login with the current user
-	# ssh root@192.168.1.1 	login with specific user
+	# ssh root@192.168.1.1 		login with specific user
 	# ssh –X root@192.168.1.1 	X - graphical configuration tools
 
 Copy a file through ssh
 	# scp [user]@[destination pc ip add.]: [source file] [destination]
 	# scp root@192.168.1.1: /home/allusers/test.txt /home/allusers
 - - - - - - - - - -
+
 Networking
 # vim /etc/sysconfig/network				define host name and gateway	
 # vim /etc/sysconfig/network-scripts/ifcfg-eth0		network interface configuration
@@ -139,14 +157,16 @@ Networking
 # service network [start / restart / stop / status]
 # /etc/rc.d/init.d/network [start / stop]
 - - - - - - - - - -
+
 python3 -V
 - - - - - - - - - -
 docker info
 docker images
 docker search <image>
 - - - - - - - - - -
-# iptables –L 		view firewall rules
-# iptables –L –n 	view firewall rules with numerical values
+
+# iptables –L 			view firewall rules
+# iptables –L –n 		view firewall rules with numerical values
 # iptables –L –t [table name]	view a specific table 
 # iptables –L –t filter
 
@@ -167,6 +187,10 @@ docker search <image>
 # |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
 # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
 # |  |  |  |  |
-# *  *  *  * <username> <command> to be executed
-- - - - - - - - - -
+# *  *  *  *  * <username> <command> to be executed
 
+sample:
+10 4 * * * root backup.sh - every day 4.10am
+0 5 * * 1 root backup.sh - every monday 5am
+0 0 1 * * root backup.sh - every 1st day of the month 12am
+- - - - - - - - - -
