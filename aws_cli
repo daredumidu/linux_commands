@@ -1,3 +1,10 @@
+aws cli configuration
+https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-linux.html
+
+export PATH=~/.local/bin/:$PATH
+
+https://github.com/pop3ret/AWSome-Pentesting/blob/main/AWSome-Pentesting-Cheatsheet.md
+
 # aws --version
 # which aws
 # aws configure list
@@ -6,8 +13,11 @@
 # aws configure
 Provide aws access key ID, secret access key, default region name, output format. 
 
-# aws s3 ls													List buckets 
-# aws s3 ls s3://bucket_name 				List files in bucket
+username: AKIAJXOKO4IBXHAEKXKQ
+password: +nxxUHVOdmOcqZBzYnFsWngtIkU7kaOQT4KpobLa
+
+# aws s3 ls 												List buckets 
+# aws s3 ls s3://bucket_name				List files in bucket
 Create bucket - mb
 Delete bucket - rb
 Copy files - cp
