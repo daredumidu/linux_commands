@@ -367,22 +367,6 @@ http-post-form
 '/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed'
 ===============
 
-aws cli configuration
-https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-linux.html
-
-export PATH=~/.local/bin/:$PATH
-
-aws --version
-
-aws configure
-
-username: AKIAJXOKO4IBXHAEKXKQ
-
-password: +nxxUHVOdmOcqZBzYnFsWngtIkU7kaOQT4KpobLa
-
-aws s3 ls s3://csestaging
-===============
-
 https://medium.com/@airman604/installing-docker-in-kali-linux-2017-1-fbaa4d1447fe
 
 = = = = = wifi pentest = = = = = = = = = = 
