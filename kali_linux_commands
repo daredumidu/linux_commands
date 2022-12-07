@@ -55,11 +55,12 @@ hping3 www.nsbm.lk -S -p 80 -c 4
 
 netdiscover
 netdiscover -r 192.168.1.0/24
-nmap -sn -PS 192.168.1.0/24 (ping sweep)
-nmap -Pn 192.168.1.0/24 (use when icmp blocked)
+nmap -sn -PS 192.168.1.0/24       (ping sweep)
+nmap -Pn 192.168.1.0/24           (use when icmp blocked)
 
 nmap -sS -p 1-65535 203.115.12.9
-nmap -p - -T4 -A -v -Pn 203.115.12.9
+nmap -p - -T4 -A -v -Pn 203.115.12.9                  (scan all 65535 ports)
+nmap -p 1-1024 -T4 -A -v -Pn testphp.vulnweb.com      (scan only given port range)
 
 check open ports with telnet
 telnet [domain name or ip] [port]
