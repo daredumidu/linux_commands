@@ -12,18 +12,21 @@
 # power off
 # halt
 
-# shutdown –r now		restart
+# shutdown –r now		restart commands
 # reboot
 
 # w 				current users in the system
 # whoami			present user
 # pwd 				present working directory
-# uname				displays information about the current system
-# uname –n / # uname --nodename
 # whereis 			to find where a command (or its man pages) is located
 # useradd 			add a new user to the system
 # passwd 			change the password of the user
 # date
+
+# cat /etc/redhat-release
+# uname				displays information about the current system
+# uname -mrs
+# uname –n / # uname --nodename
 
 # <command> && <command>    	run multiple commands at once.
 
