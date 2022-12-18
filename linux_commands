@@ -10,6 +10,14 @@
 # ping –c4 192.168.1.1
 # cat /etc/passwd          	user list
 
+# systemctl status <service_name>
+# systemctl enable cassandra
+# systemctl start cassandra
+# systemctl -l status cassandra
+
+# service <service_name> status
+# service cassandra start
+
 # shutdown –h now 		shutdown commands
 # power off
 # halt
@@ -53,6 +61,8 @@ view the file | filter command
 VIM text editor commands
 
 i 			insert
+[Esc] + / <text> 	search
+[n] 			next serch item
 [Esc] + :w 		save
 [Esc] + :q 		quit
 [Esc] + :wq 		save and exit
