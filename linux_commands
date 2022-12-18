@@ -3,6 +3,7 @@
 # ifconfig
 # ipaddr
 # netstat
+# netstat -ltpnd
 # tcpdump
 # route 			view routing table
 # route -n
