@@ -8,6 +8,7 @@
 # route 			view routing table
 # route -n
 # ping –c4 192.168.1.1
+# cat /etc/passwd          	user list
 
 # shutdown –h now 		shutdown commands
 # power off
@@ -49,7 +50,13 @@ view the file | filter command
 # cat /etc/passwd | grep student
 - - - - - - - - - -
 
-# cat /etc/passwd          	user list
+VIM text editor commands
+
+i 			insert
+[Esc] + :w 		save
+[Esc] + :q 		quit
+[Esc] + :wq 		save and exit
+[Esc] + :q! 		dont save
 - - - - - - - - - -
 
 DNS
