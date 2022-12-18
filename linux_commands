@@ -18,6 +18,15 @@
 # service <service_name> status
 # service cassandra start
 
+# chkconfig --list		run levels
+0 - Halt
+1 - Single User Mode
+2 - Multiuser, without NFS (The same as 3, if you do not have networking)
+3 - Full Multiuser Mode
+4 - unused, can be setup for networking in a different location, etc.
+5 - Full Multiuser Mode with XWindows (foundation of GUI)
+6 - Reboot (your machine switches to this one when you use ctrl-alt-delete) 
+
 # shutdown –h now 		shutdown commands
 # power off
 # halt
