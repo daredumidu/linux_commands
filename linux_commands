@@ -67,10 +67,18 @@ https://www.linode.com/docs/tools-reference/tools/find-files-in-linux-using-the-
 
 view the file | filter command
 # cat /etc/passwd | grep student
-- - - - - - - - - -
+= = = = = = = = = = = = = = = = = = = = 
+
+create a file in linux
+
+# touch <file_name>
+# cat <file_name>
+# > <file_name>
+- - - - - - - - - - 
 
 VIM text editor commands
 
+# vim <file_name>	open a file
 i 			insert
 [Esc] + / <text> 	search
 [n] 			next serch item
@@ -78,20 +86,13 @@ i 			insert
 [Esc] + :q 		quit
 [Esc] + :wq 		save and exit
 [Esc] + :q! 		dont save
-- - - - - - - - - -
-
-DNS
-# cat /etc/resolve.conf
-# cat /etc/named.conf
-- - - - - - - - - - 
-# vim /etc/ntp.conf
+:!<command>		execute commands inside vim
 - - - - - - - - - - 
 
-create a file in linux
-touch <file_name>
-cat <file_name>
-> <file_name>
-- - - - - - - - - - 
+open a file --> nano <file name>
+save --> ctrl + o
+quit --> ctrl + x
+= = = = = = = = = = = = = = = = = = = = 
 
 # mv [source file] [destination file]	move a file to a new location
 # mv /home/test/test.txt /home/new/test.txt
@@ -109,20 +110,7 @@ cat <file_name>
 
 # su - 					login to root
 # su - [user name]			switch user
-- - - - - - - - - - 
-
-open a file --> vim <file name>
-edit --> i
-save --> Esc :w
-quit --> Esc :q
-save & quit --> Esc :wq
-execute commands inside vim --> :!<command>
-- - - - - - - - - - 
-
-open a file --> nano <file name>
-save --> ctrl + o
-quit --> ctrl + x
-- - - - - - - - - -
+= = = = = = = = = = = = = = = = = = = = 
 
 # yum install samba samba-client cifs-utils
 # mkdir /mnt/mymount
@@ -141,8 +129,34 @@ sort wordlist.txt | uniq | wc -l
 sort wordlist.txt | uniq >> uniqlist.txt
 - - - - - - - - - -
 
+DNS
+# cat /etc/resolve.conf
+# cat /etc/named.conf
+- - - - - - - - - - 
+# vim /etc/ntp.conf
+- - - - - - - - - - 
+
 disk imaging --> dd if=/dev/sda of=/root/Desktop/image.dd bs=512
-- - - - - - - - - -
+
+= = = = = = = = = = = = = = = = = = = = 
+
+increase swap memory
+
+dd if=/dev/zero of=/swap_extra1 bs=1M count=2048
+
+ls -l swap_extra1
+chmod 666 swap_extra1
+
+mkswap swap_extra1
+
+swapon swap_extra1
+
+vim /etc/fstab 		(enter blow line to the fstab file)
+/swap_extra1 swap                               swap    defaults        0 0
+
+swapon -s
+free -m
+= = = = = = = = = = = = = = = = = = = = 
 
 Checking access logs.
 
