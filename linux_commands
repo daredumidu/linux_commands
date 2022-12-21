@@ -33,6 +33,7 @@
 
 # shutdown –r now		restart commands
 # reboot
+# partprobe /dev/sda
 
 # w 				current users in the system
 # whoami			present user
@@ -54,6 +55,7 @@
 # ls -lh			list details of files with human friendly format
 # ls -al 			list hidden files
 # du –h 			free space
+# df -h
 - - - - - - - - - - 
 
 find <directory> -name "<name>"
