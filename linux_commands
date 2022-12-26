@@ -204,6 +204,10 @@ Networking
 # /etc/rc.d/init.d/network [start / stop]
 - - - - - - - - - -
 
+ubuntu firewall
+# ufw status
+- - - - - - - - - -
+
 python3 -V
 - - - - - - - - - -
 docker info
