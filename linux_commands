@@ -206,6 +206,7 @@ Networking
 
 ubuntu firewall
 # ufw status
+# ufw allow ssh
 - - - - - - - - - -
 
 python3 -V
