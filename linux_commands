@@ -56,6 +56,10 @@
 # ls -al 			list hidden files
 # du –h 			free space
 # df -h
+
+# ps				process details
+# ps aux
+# top
 - - - - - - - - - - 
 
 find <directory> -name "<name>"
